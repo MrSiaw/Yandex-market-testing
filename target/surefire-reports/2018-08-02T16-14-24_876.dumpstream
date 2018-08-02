@@ -1,0 +1,18 @@
+# Created on 2018-08-02T16:14:24.878
+WARNING: An illegal reflective access operation has occurred
+
+# Created on 2018-08-02T16:14:24.879
+WARNING: Illegal reflective access by org.aspectj.weaver.loadtime.ClassLoaderWeavingAdaptor (file:/C:/Users/student/.m2/repository/org/aspectj/aspectjweaver/1.8.10/aspectjweaver-1.8.10.jar) to method java.lang.ClassLoader.defineClass(java.lang.String,byte[],int,int,java.security.ProtectionDomain)
+
+# Created on 2018-08-02T16:14:24.880
+WARNING: Please consider reporting this to the maintainers of org.aspectj.weaver.loadtime.ClassLoaderWeavingAdaptor
+
+# Created on 2018-08-02T16:14:24.881
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+
+# Created on 2018-08-02T16:14:24.882
+WARNING: All illegal access operations will be denied in a future release
+
+# Created on 2018-08-02T16:14:25.618
+[AppClassLoader@4629104a] warning javax.* types are not being woven because the weaver option '-Xset:weaveJavaxPackages=true' has not been specified
+

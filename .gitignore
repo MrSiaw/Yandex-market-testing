@@ -34,3 +34,5 @@ target/surefire-reports/TEST-TestSuite.xml
 target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
 target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst
 target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+allure-results/
+Новая папка/
