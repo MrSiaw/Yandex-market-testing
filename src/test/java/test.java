@@ -21,6 +21,7 @@ public class test {
     @Test(description = "Тест проверки работы поискового поля")
     public void findCheepItem() throws InterruptedException {
         System.setProperty("webdriver.chrome.driver", "C:/Users/Student/Downloads/chromedriver_win32/chromedriver.exe");
+
         WebDriver driver = new ChromeDriver();
         open(driver);
         sendsearchfield(driver);
@@ -77,7 +78,6 @@ public class test {
         ArrayList<String> ItemsInfo = new ArrayList<String>();
         int resultscontains=0;
         Item phone = new Item();
-        MainPage ppp = new MainPage(driver);
         List<WebElement> titles = driver.findElements(By.xpath("//div[@class='n-snippet-cell2__title']"));
         List<WebElement> prices = driver.findElements(By.xpath("//div[@class='n-snippet-cell2__main-price']"));
         for (int i=0;i<(prices.size());i=i+1){
