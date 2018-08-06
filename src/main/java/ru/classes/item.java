@@ -2,7 +2,7 @@ package ru.classes;
 /**
  * Класс товара
  */
-public class item {
+public class Item {
     String name;
     String price;
 
@@ -12,8 +12,8 @@ public class item {
      * @param pricefromsite цена товара
      */
     public void setItem(String namefromsite,String pricefromsite) {
-        item.this.name = namefromsite;
-        item.this.price = pricefromsite;
+        Item.this.name = namefromsite;
+        Item.this.price = pricefromsite;
     }
 
     /**

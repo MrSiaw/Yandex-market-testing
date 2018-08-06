@@ -1,19 +1,33 @@
 package ru.pages;
-import io.qameta.allure.Attachment;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.List;
-import ru.classes.item;
+import ru.classes.Item;
+import ru.classes.Screenshot;
+import ru.yandex.qatools.allure.annotations.Step;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
  * Страница с результатами поиска
  */
-public class searchResultsPage
+public class SearchResultsPage
 {
+    private WebDriver driver;
+    public static String titlesxpath ="//div[@class='n-snippet-cell2__title']";
+    public static String pricesxpath="//div[@class='n-snippet-cell2__main-price']";
+    public static String sortxpath="//div[@class='n-filter-sorter i-bem n-filter-sorter_js_inited']//a";
+    public static String firstitemxpath="//div[@class='n-snippet-cell2__title']//a";
+
+    /**
+     * Конструктор класса
+     * @param webDriver - веб-драйвер
+     */
+    public SearchResultsPage(WebDriver webDriver){
+        driver=webDriver;
+    }
     /**
      * Метод получает список веб-эелементов, содержаших названия товаров
      *
@@ -22,7 +36,7 @@ public class searchResultsPage
      */
     private List<WebElement> getTitles(WebDriver driver)
     {
-        List<WebElement> titles = driver.findElements(By.xpath("//div[@class='n-snippet-cell2__title']"));
+        List<WebElement> titles = driver.findElements(By.xpath(titlesxpath));
         return titles;
     }
 
@@ -34,35 +48,50 @@ public class searchResultsPage
      */
     private List<WebElement> getPrices(WebDriver driver)
     {
-        List<WebElement> prices = driver.findElements(By.xpath("//div[@class='n-snippet-cell2__main-price']"));
+        List<WebElement> prices = driver.findElements(By.xpath(pricesxpath));
         return prices;
     }
 
     /**
-     * Метод создает список найденных товаров из списка веб-элементов с ценами и названиями товаров
-     * @param driver - веб-драйвер
+     * Метод создает String-список найденных товаров из списка веб-элементов с ценами и названиями товаров
      * @return - список товаров
      */
-    public ArrayList<String> createListOfItems(WebDriver driver)
+    public List<String> returnStringList()
     {
-        ArrayList<String> listOfItems = new ArrayList<String>();
+        List<String> listOfItems = new ArrayList<String>();
         List<WebElement> titles = getTitles(driver);
         List<WebElement> prices = getPrices(driver);
         for (int i = 0; i < (prices.size()); i = i + 1)
         {
             listOfItems.add(titles.get(i).getText() + " " + prices.get(i).getText());
         }
-        returnListOfItems(listOfItems);
         return listOfItems;
     }
-
     /**
-     * Метод проверяет налие искомого товара в списке товаров
+     * Метод создает Item-список найденных товаров из списка веб-элементов с ценами и названиями товаров
+     * @return - Item-список товаров
+     */
+    public List<Item> returnItemList ()
+    {
+        List<Item> results = new ArrayList<Item>();
+        Item phone = new Item();
+        List<WebElement> titles = getTitles(driver);
+        List<WebElement> prices = getPrices(driver);
+        for (int i = 0; i < (prices.size()); i = i + 1)
+        {
+            phone.setItem(titles.get(i).getText(),prices.get(i).getText());
+            results.add(i,phone);
+        }
+        return results;
+    }
+    /**
+     * Метод проверяет налие искомого товара в списке товаров. Если его нет - браузер закрывается.
      * @param request - текст запроса
      * @param listOfItems - список найденных товаров
-     * @return - 1 или 0 в зависимости от наличие товара в списке
      */
-    public int checkItemInList(String request, ArrayList<String> listOfItems)
+
+    @Step("Проверить наличие товара в списке найденных таваров")
+    public void checkItemInList(String request, List<String> listOfItems)
     {
         int contains=0;
 
@@ -75,59 +104,59 @@ public class searchResultsPage
                 contains=1;
             }
         }
-        return contains;
+        /*
+        if (contains==1)
+        {
+            //Allure.addAttachment("Наличие товара","товар есть в списке");
+        }
+        else
+        {
+            //Allure.addAttachment("Наличие товара","товара нет в списке");
+            driver.quit();
+        }*/
     }
-
     /**
      * Метод возвращает веб-элемент для сортировки товаров по цене
-     * @param driver - веб-драйвер
      * @return веб-элемент сортировки по цене
      */
-    private WebElement findSortElement(WebDriver driver)
+    private WebElement findSortElement()
     {
-        WebElement sort = driver.findElement(By.xpath("//div[@class='n-filter-sorter i-bem n-filter-sorter_js_inited']//a"));
+        WebElement sort = driver.findElement(By.xpath(sortxpath));
         return sort;
     }
 
     /**
      * Метод сортирует найденные товары по цене
-     * @param driver - веб-драйвер
      * @throws InterruptedException - исключение
      */
-    public void clickSortElement(WebDriver driver) throws InterruptedException {
-        WebElement sort=findSortElement(driver);
+    @Step("Щелкнуть на сортировку по цене")
+    public void clickSortElement() throws InterruptedException {
+        WebElement sort=findSortElement();
         sort.click();
         SECONDS.sleep(3);
+        Screenshot.saveAllureScreenshot(driver);
     }
 
     /**
      * Метод ищет первый товар в списке
-     * @param driver - веб-драйвер
      * @return - первый товар в списке
      */
-    private WebElement findFisrtItem(WebDriver driver)
+    private WebElement findFisrtItem()
     {
-        WebElement firstItem = driver.findElement(By.xpath("//div[@class='n-snippet-cell2__title']//a"));
+        WebElement firstItem = driver.findElement(By.xpath(firstitemxpath));
         return firstItem;
     }
 
     /**
      * Щелкнуть на первый товар в списке
-     * @param driver
      */
-    public void clickFirstItem(WebDriver driver)
+    @Step(" Щелкнуть на первый товар в списке")
+    public void clickFirstItem()
     {
-        WebElement firstItem = findFisrtItem(driver);
+        WebElement firstItem = findFisrtItem();
         firstItem.click();
-    }
-    /**
-     * Метод добавляет список найденных товаров во вложения
-     * @param ItemsInfo список найденных товаров
-     * @return список найденных товаров
-     */
-    @Attachment(value = "List of Items", type = "text")
-    public  ArrayList<String> returnListOfItems (ArrayList<String> ItemsInfo) {
-        return ItemsInfo;
+        driver.manage().timeouts().pageLoadTimeout(10,SECONDS);
+        Screenshot.saveAllureScreenshot(driver);
     }
 }
 

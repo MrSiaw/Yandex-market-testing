@@ -1,1 +1,0 @@
-memberSearchIndex = [{"p":"Classes","c":"myClass","l":"getName()"},{"p":"Classes","c":"myClass","l":"getPrice()"},{"p":"Classes","c":"myClass","l":"myClass()"},{"p":"Classes","c":"myClass","l":"setItem(String, String)","url":"setItem-java.lang.String-java.lang.String-"}]

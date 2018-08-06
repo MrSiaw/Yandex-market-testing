@@ -1,1 +1,7 @@
-Classes\myClass.class
+ru\pages\IndexPage.class
+ru\classes\StaticValues.class
+ru\classes\Screenshot.class
+ru\pages\ItemPage.class
+ru\pages\SearchResultsPage.class
+ru\classes\ListOfItems.class
+ru\classes\Item.class
