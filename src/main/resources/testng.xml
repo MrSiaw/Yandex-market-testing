@@ -1,0 +1,27 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="test" verbose="2" parallel="classes" data-provider-thread-count="2">
+    <test name="test"  >
+        <classes>
+            <class name="test" />
+        </classes>
+    </test>
+</suite>
+<!--
+<suite name="test" verbose="2" annotations="JDK" parallel="tests" thread-count="2">
+    <test name="testHonor" preserve-order="true" >
+        <parameter name="url" value="https://market.yandex.ru/"/>
+        <parameter name="request" value="Honor 9"/>
+        <classes>
+            <class name="test" />
+        </classes>
+    </test>
+    <test name="testIphone" preserve-order="true" >
+        <parameter name="url" value="https://market.yandex.ru/"/>
+        <parameter name="request" value="Iphone 9"/>
+        <classes>
+            <class name="test" />
+        </classes>
+    </test>
+</suite>
+-->

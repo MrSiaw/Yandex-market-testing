@@ -1,0 +1,4 @@
+{
+  "pricexpath":"//div[@class='n-product-price-cpa2']",
+  "sellerxpath":"//div[@class='n-product-default-offer-multiple__shop']//a"
+}

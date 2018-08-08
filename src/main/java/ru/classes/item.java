@@ -1,8 +1,7 @@
 package ru.classes;
-/**
- * Класс товара
- */
-public class Item {
+
+public class Item
+{
     String name;
     String price;
 
@@ -31,5 +30,4 @@ public class Item {
     public String getPrice(){
         return price;
     }
-
 }

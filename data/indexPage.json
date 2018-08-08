@@ -1,0 +1,4 @@
+{
+  "searchfieldxpath":"//input[@id='header-search']",
+  "submitxpath":"//button[@type='submit']"
+}

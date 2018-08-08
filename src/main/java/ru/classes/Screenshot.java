@@ -1,12 +1,10 @@
 package ru.classes;
+
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import ru.yandex.qatools.allure.annotations.Attachment;
 
-/**
- * Класс скриншота для прикрепления к отчету allure
- */
 public class Screenshot {
     /**
      * Метод прикрпеляет скриншот к отчету allure

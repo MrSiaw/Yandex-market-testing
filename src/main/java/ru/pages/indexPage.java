@@ -1,31 +1,49 @@
 package ru.pages;
-import org.openqa.selenium.*;
+import com.google.gson.annotations.SerializedName;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import ru.classes.Screenshot;
+import ru.classes.XpathTemplates;
 import ru.yandex.qatools.allure.annotations.Step;
+
+import java.io.FileNotFoundException;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-/**
- * Главная страница
- */
 public class IndexPage {
-    public  WebDriver driver;
-    public static String url="https://market.yandex.ru/";
-    public static String searchfieldxpath;
-    public static String submitxpath;
-    public IndexPage(WebDriver webDriver){
-        driver=webDriver;
-    }
+    private WebDriver driver;
+    private XpathTemplates xpathTemplates;
     /**
-     * Открыть в браузере сайт яндекс-маркета
+     * Установка драйвера
+     * @param driver - веб-драйвер
      */
-    @Step("Открыть сайт в браузере")
-    private void openSite(){
-
-        driver.get(url);
-        driver.manage().timeouts().pageLoadTimeout(10,SECONDS);
+    private void setDriver(WebDriver driver)
+    {
+        this.driver=driver;
     }
 
+    /**
+     *
+     * @param json
+     * @throws FileNotFoundException
+     */
+    private void setXpathTemplates(String json) throws FileNotFoundException
+    {
+        this.xpathTemplates=XpathTemplates.setXpathTemplates(json);
+    }
+
+    /**
+     *
+     * @param driver
+     * @param json
+     * @throws FileNotFoundException
+     */
+    public IndexPage(WebDriver driver, String json) throws FileNotFoundException
+    {
+        setXpathTemplates(json);
+        setDriver(driver);
+    }
     /**
      * Метод получает строку запроса, вводит в поисковую строку и нажимает кнопку найти
      * @param request - запрос
@@ -33,43 +51,17 @@ public class IndexPage {
      */
     @Step("Ввести в поисковую строку запрос и нажать найти")
     public void search (String request) throws InterruptedException {
-        openSite();
-        Screenshot.saveAllureScreenshot(driver);
         inputIntoSearchFiled(request);
         Screenshot.saveAllureScreenshot(driver);
         clickSubmitSearch();
         Screenshot.saveAllureScreenshot(driver);
-/*
-
-        SearchResultsPage resultsPage = new SearchResultsPage();
-        results=resultsPage.createListOfItems(driver);
-        //прикрепляем список найденных товаров к отчету
-        ListOfItems.returnListOfItems(results);
-        //проверяем наличие в списке нужного товара
-        contains=resultsPage.checkItemInList(request,results);
-        if (contains==1)
-        {
-            resultsPage.clickSortElement(driver);
-            Screenshot.saveAllureScreenshot(driver);
-            resultsPage.clickFirstItem(driver);
-            Screenshot.saveAllureScreenshot(driver);
-            ItemPage.printInfo(driver);
-        }
-        //выход из браузера если товар не найден
-        else
-        {
-            driver.quit();
-        }
-        return results;
-*/
-
     }
     /**
      * Метод ищет поле для ввода поискового запроса
      * @return - веб-элемент для ввода запроса
      */
     private WebElement getSearchFieldElement(){
-        WebElement searchField = driver.findElement(By.xpath(searchfieldxpath));
+        WebElement searchField = driver.findElement(By.xpath(xpathTemplates.getSearchfieldxpath()));
         return searchField;
     }
     /**
@@ -77,7 +69,7 @@ public class IndexPage {
      * @return - веб-элемент кнопка поиска
      */
     private WebElement getSubmitSearchElement(){
-        WebElement button = driver.findElement(By.xpath(submitxpath));
+        WebElement button = driver.findElement(By.xpath(xpathTemplates.getSubmitxpath()));
         return button;
     }
 

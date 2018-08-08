@@ -5,11 +5,7 @@ import ru.yandex.qatools.allure.annotations.Step;
 
 import java.util.List;
 
-/**
- * Класс для списка с найденными товарами для отчета allure
- */
-public class ListOfItems
-{
+public class ListOfItems {
     /**
      * Метод прикрепляет список найденных товаров к отчету allure
      * @param ItemsInfo - список товаров

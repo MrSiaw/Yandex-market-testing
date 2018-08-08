@@ -1,48 +1,70 @@
 package ru.pages;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import ru.classes.XpathTemplates;
 
-/**
- * Страница с выбранным товаром
- */
-public class ItemPage{
-    static String pricexpath="//div[@class='n-product-price-cpa2']";
-    static String sellerxpath="//div[@class='n-product-default-offer-multiple__shop']//a";
+import java.io.FileNotFoundException;
+
+public class ItemPage {
+    private WebDriver driver;
+    private XpathTemplates xpathTemplates;
+    /**
+     * Установка драйвера
+     * @param driver - веб-драйвер
+     */
+    private void setDriver(WebDriver driver)
+    {
+        this.driver=driver;
+    }
+    /**
+     *
+     * @param json
+     * @throws FileNotFoundException
+     */
+    private void setXpathTemplates(String json) throws FileNotFoundException
+    {
+        this.xpathTemplates=XpathTemplates.setXpathTemplates(json);
+    }
 
     /**
+     *
+     * @param driver
+     * @param json
+     * @throws FileNotFoundException
+     */
+    public ItemPage(WebDriver driver, String json) throws FileNotFoundException
+    {
+        setXpathTemplates(json);
+        setDriver(driver);
+    }
+    /**
      * Метод получает цену на товар
-     * @param driver - веб-драйвер
      * @return - цена
      */
-    private static String getPriceElement(WebDriver driver)
+    private String getPriceElement()
     {
-        String price = driver.findElement(By.xpath(pricexpath)).getText();
+        String price = driver.findElement(By.xpath(xpathTemplates.getPricexpath())).getText();
         return price;
     }
 
     /**
      * Метод получает название магазина
-     * @param driver - веб-драйвер
      * @return - название
      */
-    private static String getSellerElement(WebDriver driver)
+    private String getSellerElement()
     {
-        String seller = driver.findElement(By.xpath(sellerxpath)).getText();
+        String seller = driver.findElement(By.xpath(xpathTemplates.getSellerxpath())).getText();
         return seller;
     }
 
     /**
      * Метод добавляет цену товара и название магазина во вложения отчета allure
-     * @param driver - веб-драйвер
      */
-    public static void printInfo(WebDriver driver)
+    public void printInfo()
     {
-        String price = getPriceElement(driver);
-        String seller = getSellerElement(driver);
+        String price = getPriceElement();
+        String seller = getSellerElement();
         System.out.println("Seller: " + seller + "; Price: " + price + ".");
         //Allure.addAttachment("Результаты поиска:", "text/plain","Название магазина: " + seller + "; Цена: " + price + "." );
-        driver.quit();
     }
 }

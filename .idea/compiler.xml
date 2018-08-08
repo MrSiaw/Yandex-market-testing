@@ -10,8 +10,5 @@
         <module name="rumarketyandex" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="ru.market.yandex" target="1.5" />
-    </bytecodeTargetLevel>
   </component>
 </project>

@@ -1,0 +1,6 @@
+{
+  "titlesxpath":"//div[@class='n-snippet-cell2__title']",
+  "pricesxpath":"//div[@class='n-snippet-cell2__main-price']",
+  "sortxpath":"//div[@class='n-filter-sorter i-bem n-filter-sorter_js_inited']//a",
+  "firstitemxpath":"//div[@class='n-snippet-cell2__title']//a"
+}
